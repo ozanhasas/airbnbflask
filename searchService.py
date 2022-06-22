@@ -15,11 +15,6 @@ port = config['HOST']['port']
 username = config['CREDENTIALS']['username']
 password = config['CREDENTIALS']['password']
 
-# start_date_input = input_json['start_date']
-# end_date_input = input_json['end_date']
-# start_date = datetime.datetime(start_date_input['year'], start_date_input['month'], start_date_input['day'])
-# end_date = datetime.datetime(end_date_input['year'], end_date_input['month'], end_date_input['day'])
-
 client = pymongo.MongoClient("mongodb+srv://"+username+":"+password+"@cluster0.fnvrd.mongodb.net/?retryWrites=true&w=majority")
 mydb = client["Airbnb"]
 house_collection = mydb["Home"]
@@ -59,7 +54,7 @@ def getDateHouses():
     return output_json
 
 
-@app.route('/getHousesByDate')
+@app.route('/getHousesByDate2')
 def getDateHouses2():
     input_json = request.get_json()
     start_date_input = input_json['start_date']
@@ -80,7 +75,6 @@ def getDateHouses2():
     selected_houses = house_collection.find({"_id": {"$nin": removed_list}})
     for i in selected_houses:
         house_list.append(i)
-        print(i['_id'])
     output_json = json_util.dumps(house_list, ensure_ascii=False)
     return output_json
 
@@ -112,7 +106,6 @@ def getDateHouses3():
     for i in selected_houses:
         house_list.append(i)
     output_json = json_util.dumps(house_list, ensure_ascii=False)
-    print(output_json)
     return output_json
 
 
